@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: notes-api
+  template:
+    metadata:
+      labels:
+        app: notes-api
+    spec:
+      containers:
+      - name: notes-api
+        image: fhsinchy/notes-api
+        resources:
+       
+        ports:
+        - containerPort: 3000
+        env: 
+          - name: DB_CONNECTION
+            value: pg
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 5
