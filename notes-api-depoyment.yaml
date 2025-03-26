@@ -16,12 +16,21 @@ spec:
       - name: notes-api
         image: fhsinchy/notes-api
         resources:
-       
         ports:
         - containerPort: 3000
-        env: 
-          - name: DB_CONNECTION
-            value: pg
+        env:
+        - name: DB_CONNECTION
+          value: pg
+        - name: DB_HOST
+          value: notes-db-service
+        - name: DB_PORT
+          value: '5432'
+        - name: DB_USER
+          value: postgres
+        - name: DB_DATABASE
+          value: notesdb
+        - name: DB_PASSWORD
+          value: 63eaQB9wtLqmNBpg
         livenessProbe:
           httpGet:
             path: /
